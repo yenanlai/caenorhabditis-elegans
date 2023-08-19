@@ -47,7 +47,7 @@ def train_and_evaluate_logistic_regression_classifiers(data_features_train_prepa
     return best_clf
 
 
-# Define random forest classifiers
+# define random forest classifier
 def train_and_evaluate_random_forest_classifiers(data_features_train_prepared, data_train_targets,
                                                  data_features_test_prepared, data_test_targets):
     # Set up a hyperparameter grid search using GridSearchCV
@@ -57,7 +57,11 @@ def train_and_evaluate_random_forest_classifiers(data_features_train_prepared, d
         'min_samples_split': [2, 5, 10],
         'min_samples_leaf': [1, 2, 4]
     }
+
+    # Initialize classifier
     rf = RandomForestClassifier(random_state=42)
+    
+    # Initialize GridSearchCV
     grid_search = GridSearchCV(estimator=rf, param_grid=param_grid,
                                cv=5, n_jobs=-1, verbose=2, scoring='accuracy')
 
@@ -85,6 +89,7 @@ def train_and_evaluate_random_forest_classifiers(data_features_train_prepared, d
     return best_clf
 
 
+# plot confusion matrix
 def confusion_matrix_figure(confusion_matrix, class_names, title):
     fig, ax = plt.subplots(figsize=(18, 9))
     sns.heatmap(confusion_matrix, annot=True, fmt="d", cmap="Blues", ax=ax, xticklabels=class_names,
